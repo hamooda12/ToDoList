@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة المهام الإسلامية</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <!-- CSS File -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📿</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="main-header" role="banner">
+            <div class="header-content">
+                <h1 class="site-title">📿 قائمة المهام الإسلامية</h1>
+                <p class="site-subtitle">"وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ" (النجم: 39)</p>
+                <p class="verse-translation">"وأن ليس للإنسان إلا ما سعى" - ولا يحصل له إلا ما عمل وكدح</p>
+            </div>
+            <div class="header-decoration">
+                <span class="decoration-item" aria-hidden="true"></span>
+                <span class="decoration-item" aria-hidden="true"></span>
+                <span class="decoration-item" aria-hidden="true"></span>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content" role="main">
+            <!-- Add New Task Form -->
+            <section class="form-section" aria-labelledby="form-title">
+                <h2 id="form-title" class="section-title">➕ إضافة مهمة جديدة</h2>
+                <form class="task-form" id="task-form" role="form" aria-label="إضافة مهمة جديدة">
+                    <div class="form-grid">
+                        <!-- Task Title Input -->
+                        <div class="form-group">
+                            <label for="task-title" class="form-label">عنوان المهمة</label>
+                            <input 
+                                type="text" 
+                                id="task-title" 
+                                class="form-input" 
+                                placeholder="أدخل عنوان المهمة هنا..."
+                                aria-required="true"
+                                required
+                                data-input-type="task-title"
+                            >
+                            <span class="input-icon" aria-hidden="true"></span>
+                        </div>
+
+                        <!-- Task Date Input -->
+                        <div class="form-group">
+                            <label for="task-date" class="form-label">تاريخ التسليم</label>
+                            <input 
+                                type="date" 
+                                id="task-date" 
+                                class="form-input"
+                                required
+                                aria-label="تاريخ تسليم المهمة"
+                                data-input-type="task-date"
+                            >
+                            <span class="input-icon" aria-hidden="true"></span>
+                        </div>
+
+                        <!-- Task Status Select -->
+                        <div class="form-group">
+                            <label for="task-status" class="form-label">حالة المهمة</label>
+                            <select 
+                                id="task-status" 
+                                class="form-select"
+                                aria-label="اختر حالة المهمة"
+                                data-select-type="task-status"
+                            >
+                                <option value="pending" selected>قيد الانتظار</option>
+                                <option value="completed">مكتملة</option>
+                                <option value="canceled">ملغاة</option>
+                            </select>
+                            <span class="select-icon" aria-hidden="true">🔽</span>
+                        </div>
+
+                        <!-- Add Task Button -->
+                        <div class="form-group form-group-full">
+                            <button 
+                                type="submit" 
+                                id="add-task-btn" 
+                                class="btn btn-primary"
+                                aria-label="إضافة المهمة الجديدة"
+                                data-btn-action="add-task"
+                            >
+                                <span class="btn-icon">➕</span>
+                                إضافة المهمة
+                            </button>
+                            <button 
+                                type="button" 
+                                id="clear-form-btn" 
+                                class="btn btn-secondary"
+                                aria-label="مسح الحقول"
+                                data-btn-action="clear-form"
+                            >
+                                <span class="btn-icon">🗑️</span>
+                                مسح الحقول
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Task Filters (JS-Ready) -->
+            <section class="filters-section" aria-label="فلاتر المهام">
+                <div class="filters-container">
+                    <h3 class="filters-title">تصفية المهام:</h3>
+                    <div class="filter-buttons">
+                        <button 
+                            class="filter-btn active" 
+                            data-filter="all"
+                            aria-pressed="true"
+                        >
+                            جميع المهام
+                        </button>
+                        <button 
+                            class="filter-btn" 
+                            data-filter="pending"
+                            aria-pressed="false"
+                        >
+                            قيد الانتظار
+                        </button>
+                        <button 
+                            class="filter-btn" 
+                            data-filter="completed"
+                            aria-pressed="false"
+                        >
+                            مكتملة
+                        </button>
+                        <button 
+                            class="filter-btn" 
+                            data-filter="canceled"
+                            aria-pressed="false"
+                        >
+                            ملغاة
+                        </button>
+                    </div>
+                    <div class="tasks-counter">
+                        <span id="total-tasks">0</span> مهمة
+                    </div>
+                </div>
+            </section>
+
+            <!-- Task List Section -->
+            <section class="tasks-section" aria-labelledby="tasks-title">
+                <h2 id="tasks-title" class="section-title">📋 قائمة المهام</h2>
+                
+                <!-- Empty State (Will be hidden when tasks exist) -->
+                <div class="empty-state" id="empty-state" aria-live="polite">
+                    <div class="empty-icon">📋</div>
+                    <h3 class="empty-title">لا توجد مهام حالياً</h3>
+                    <p class="empty-message">ابدأ بإضافة مهمة جديدة باستخدام النموذج أعلاه</p>
+                </div>
+
+                <!-- Task List Container -->
+                <ul class="task-list" id="task-list" role="list" aria-label="قائمة المهام">
+                    
+                </ul>
+
+                <!-- Tasks Summary -->
+                <div class="tasks-summary" id="tasks-summary" aria-live="polite">
+                    <div class="summary-item">
+                        <span class="summary-count" id="pending-count">0</span>
+                        <span class="summary-label pending">قيد الانتظار</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-count" id="completed-count">0</span>
+                        <span class="summary-label completed">مكتملة</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-count" id="canceled-count">0</span>
+                        <span class="summary-label canceled">ملغاة</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Motivation Section -->
+            <section class="motivation-section" aria-label="كلمات تحفيزية">
+                <div class="motivation-card">
+                    <div class="motivation-icon">🌙</div>
+                    <blockquote class="motivation-text">
+                        "خير الأعمال أدومها وإن قل"
+                        <footer class="motivation-author">— حديث شريف</footer>
+                    </blockquote>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="main-footer" role="contentinfo">
+            <div class="footer-content">
+                <p class="footer-dua">اللهم بارك في أوقاتنا وأعمالنا، واجعلها خالصة لوجهك الكريم</p>
+                <p class="footer-translation">"O Allah, bless our time and our deeds, and make them purely for Your sake."</p>
+                <div class="footer-info">
+                    <span class="app-version" data-app-info="version">الإصدار 1.0.0</span>
+                    <span class="app-stats" data-app-info="stats">
+                        مصمم بـ <span class="heart" aria-hidden="true">❤️</span> للإسلام
+                    </span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Template for New Tasks (Hidden, for JS cloning) -->
+    <template id="task-template">
+        <li class="task-item pending" data-task-id="" data-task-status="pending" data-task-date="">
+            <div class="task-content">
+                <input type="checkbox" class="task-checkbox" id="task-" data-action="toggle-completion">
+                <label for="task-" class="task-checkbox-label"></label>
+                
+                <div class="task-title-container">
+                    <span class="task-title"></span>
+                    <div class="task-meta">
+                        <span class="task-date" data-date-type="deadline">
+                            <span class="meta-icon"></span>
+                            <time datetime=""></time>
+                        </span>
+                        <span class="task-created" data-date-type="created">
+                            أضيفت: <time datetime=""></time>
+                        </span>
+                    </div>
+                </div>
+                
+                <span class="task-status-badge pending" data-status-type="badge">
+                    قيد الانتظار
+                </span>
+                
+                <div class="task-actions">
+                    <button class="task-btn edit-task-btn" data-action="edit-task" aria-label="تعديل المهمة">
+                        <span class="btn-icon"></span>
+                    </button>
+                    <button class="task-btn delete-task-btn" data-action="delete-task" aria-label="حذف المهمة">
+                        <span class="btn-icon"></span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="edit-form" style="display: none;" data-edit-form="true">
+                <input type="text" class="edit-title" data-field="title">
+                <input type="date" class="edit-date" data-field="date">
+                <select class="edit-status" data-field="status">
+                    <option value="pending">قيد الانتظار</option>
+                    <option value="completed">مكتملة</option>
+                    <option value="canceled">ملغاة</option>
+                </select>
+                <button class="save-edit-btn" data-action="save-edit">💾 حفظ</button>
+                <button class="cancel-edit-btn" data-action="cancel-edit">❌ إلغاء</button>
+            </div>
+        </li>
+    </template>
+    <script src="script.js"></script>
+</body>
+</html>
