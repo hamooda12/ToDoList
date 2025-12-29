@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قائمة المهام الإسلامية</title>
+    <title>قائمة المهام </title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,7 @@
         <!-- Header Section -->
         <header class="main-header" role="banner">
             <div class="header-content">
-                <h1 class="site-title">📿 قائمة المهام الإسلامية</h1>
+                <h1 class="site-title">📿 قائمة المهام اليومية </h1>
                 <p class="site-subtitle">"وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ" (النجم: 39)</p>
                 <p class="verse-translation">"وأن ليس للإنسان إلا ما سعى" - ولا يحصل له إلا ما عمل وكدح</p>
             </div>
@@ -112,7 +112,7 @@
             <section class="filters-section" aria-label="فلاتر المهام">
                 <div class="filters-container">
                     <h3 class="filters-title">تصفية المهام:</h3>
-                    <div class="filter-buttons">
+                    <div class="filter-buttons" id="filters">
                         <button 
                             class="filter-btn active" 
                             data-filter="all"
@@ -134,11 +134,16 @@
                         >
                             مكتملة
                         </button>
+                          <button 
+                            class="filter-btn" 
+                            data-filter="canceled"
+                            aria-pressed="false"
+                        >
+                            مهمة
+                        </button>
                        
                     </div>
-                    <div class="tasks-counter">
-                        <span id="total-tasks">0</span> مهمة
-                    </div>
+                   
                 </div>
             </section>
 

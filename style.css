@@ -322,7 +322,7 @@ body {
     flex-wrap: wrap;
     align-items: center;
     gap: var(--space-lg);
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .filters-title {
